@@ -29,10 +29,9 @@
   },
   "dependencies": {
     "chalk": "^1.1.3",
+    "cheerio": "^0.22.0",
     "chokidar": "^1.7.0",
-    "glob": "^7.1.1",
-    "jsdom": "^10.1.0",
-    "sergeant": "^15.4.0",
-    "thenify": "^3.2.1"
+    "mkdirp": "^0.5.1",
+    "sergeant": "^15.4.0"
   }
 }
