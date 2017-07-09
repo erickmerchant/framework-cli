@@ -32,6 +32,6 @@
     "cheerio": "^0.22.0",
     "chokidar": "^1.7.0",
     "mkdirp": "^0.5.1",
-    "sergeant": "^15.4.0"
+    "sergeant": "^15.4.4"
   }
 }
