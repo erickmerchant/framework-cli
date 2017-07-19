@@ -54,7 +54,9 @@ command('framework', 'some helpful commands for your app', function ({parameter,
             const element = dom.window.document.querySelector(args.selector)
 
             if (element) {
-              element.innerHTML = String(component({state, dispatch, next}))
+              const fragment = new JSDOM(String(component({state, dispatch, next})))
+
+              element.parentNode.replaceChild(fragment.window.document.body, element)
             }
 
             const result = dom.serialize()
