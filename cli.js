@@ -2,18 +2,19 @@
 const command = require('sergeant')
 const JSDOM = require('jsdom').JSDOM
 const path = require('path')
-const globParent = require('glob-parent')
+const commondir = require('commondir')
 const thenify = require('thenify')
 const mkdirp = thenify(require('mkdirp'))
-const glob = thenify(require('glob'))
+const globby = require('globby')
 const readFile = thenify(require('fs').readFile)
 const writeFile = thenify(require('fs').writeFile)
 
 command('framework', 'some helpful commands for your app', function ({parameter, option, command}) {
   command('render', 'render a component to static html', function ({parameter, option}) {
     parameter('state', {
-      description: 'a glob to json files',
-      required: true
+      description: 'json files',
+      required: true,
+      multiple: true
     })
 
     parameter('component', {
@@ -45,9 +46,9 @@ command('framework', 'some helpful commands for your app', function ({parameter,
       }
 
       return readFile(path.join(process.cwd(), args.document), 'utf8').then((html) => {
-        const stateParent = globParent(args.state)
+        return globby(args.state).then((files) => {
+          const stateParent = commondir(process.cwd(), files)
 
-        return glob(args.state).then((files) => {
           return Promise.all(files.map((file) => {
             const dom = new JSDOM(html)
             const state = require(path.join(process.cwd(), file))
