@@ -31,7 +31,7 @@
     "chalk": "^2.1.0",
     "commondir": "^1.0.1",
     "globby": "^6.1.0",
-    "jsdom": "^11.1.0",
+    "jsdom": "^11.2.0",
     "mkdirp": "^0.5.1",
     "sergeant": "^15.4.9",
     "thenify": "^3.3.0"
