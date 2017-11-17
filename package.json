@@ -30,7 +30,7 @@
   "dependencies": {
     "chalk": "^2.3.0",
     "commondir": "^1.0.1",
-    "globby": "^6.1.0",
+    "globby": "^7.0.0",
     "jsdom": "^11.3.0",
     "mkdirp": "^0.5.1",
     "sergeant": "^15.5.1",
