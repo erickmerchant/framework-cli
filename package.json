@@ -33,7 +33,7 @@
     "globby": "^7.0.0",
     "jsdom": "^11.3.0",
     "mkdirp": "^0.5.1",
-    "sergeant": "^16.0.1",
+    "sergeant": "^16.1.0",
     "thenify": "^3.3.0"
   }
 }
