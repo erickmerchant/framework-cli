@@ -5,7 +5,7 @@ const path = require('path')
 const commondir = require('commondir')
 const thenify = require('thenify')
 const mkdirp = thenify(require('mkdirp'))
-const globby = require('globby')
+const glob = thenify(require('glob'))
 const readFile = thenify(require('fs').readFile)
 const writeFile = thenify(require('fs').writeFile)
 
@@ -46,7 +46,10 @@ command('framework', 'some helpful commands for your app', function ({parameter,
       }
 
       return readFile(path.join(process.cwd(), args.document), 'utf8').then((html) => {
-        return globby(args.state).then((files) => {
+        return Promise.all(args.state.map((state) => glob(state, {nodir: true})))
+        .then((files) => {
+          files = files.reduce((files, current) => files.concat(current), [])
+
           const stateParent = commondir(process.cwd(), files)
 
           return Promise.all(files.map((file) => {
