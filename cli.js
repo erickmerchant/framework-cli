@@ -27,17 +27,18 @@ command('framework', 'some helpful commands for your app', function ({parameter,
       required: true
     })
 
-    option('selector', {
+    parameter('selector', {
       description: 'a selector to find in the document',
-      default: 'body'
+      default: { value: 'body' }
     })
 
     option('output', {
-      description: 'a directory to save to. Defaults to dirname of <document>',
+      description: 'a directory to save to',
+      default: { text: 'dirname of <document>', value: false },
       aliases: ['o']
     })
 
-    return function (args) {
+    return function (args, {isDefault}) {
       const component = require(path.join(process.cwd(), args.component))
       let outputDirectory = args.output
 
