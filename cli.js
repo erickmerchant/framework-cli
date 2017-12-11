@@ -27,7 +27,7 @@ command('framework', 'some helpful commands for your app', function ({parameter,
       required: true
     })
 
-    parameter('selector', {
+    option('selector', {
       description: 'a selector to find in the document',
       default: { value: 'body' }
     })
