@@ -38,7 +38,7 @@ command('framework', 'some helpful commands for your app', function ({parameter,
       aliases: ['o']
     })
 
-    return function (args, {isDefault}) {
+    return function (args) {
       const component = require(path.join(process.cwd(), args.component))
       let outputDirectory = args.output
 
