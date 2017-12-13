@@ -2,13 +2,12 @@
   "name": "@erickmerchant/framework-cli",
   "version": "4.0.0",
   "description": "a cli for @erickmerchant/framework",
-  "main": "dist/main.js",
+  "main": "index.js",
   "bin": {
-    "framework": "cli.js"
+    "framework": "./cli.js"
   },
   "scripts": {
-    "test": "standard && tape 'test.js' | faucet",
-    "cover": "nyc --reporter=html npm test"
+    "test": "standard && tape 'test.js'"
   },
   "repository": {
     "type": "git",
@@ -21,9 +20,6 @@
   },
   "homepage": "https://github.com/erickmerchant/framework-cli#readme",
   "devDependencies": {
-    "faucet": "0.0.1",
-    "mockery": "^2.0.0",
-    "nyc": "^11.3.0",
     "standard": "^10.0.3",
     "tape": "^4.8.0"
   },
