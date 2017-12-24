@@ -15,14 +15,14 @@ exports.render = function (args) {
     outputDirectory = path.dirname(path.join(process.cwd(), args.document))
   }
 
-  return readFile(path.join(process.cwd(), args.document), 'utf8').then((html) => {
+  return readFile(path.join(process.cwd(), args.document), 'utf8').then(function (html) {
     return Promise.all(args.state.map((state) => glob(state, {nodir: true})))
-    .then((files) => {
+    .then(function (files) {
       files = files.reduce((files, current) => files.concat(current), [])
 
       const stateParent = commondir(process.cwd(), files)
 
-      return Promise.all(files.map((file) => {
+      return Promise.all(files.map(function (file) {
         const dom = new JSDOM(html)
         const state = require(path.join(process.cwd(), file))
         const element = dom.window.document.querySelector(args.selector)
@@ -37,7 +37,7 @@ exports.render = function (args) {
         const relativeFile = path.relative(stateParent, file)
         const outputFile = path.join(outputDirectory, path.dirname(relativeFile), path.basename(relativeFile, path.extname(relativeFile))) + '.html'
 
-        return mkdirp(path.dirname(outputFile)).then(() => {
+        return mkdirp(path.dirname(outputFile)).then(function () {
           return writeFile(outputFile, result)
         })
       }))
