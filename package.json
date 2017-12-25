@@ -20,12 +20,14 @@
   },
   "homepage": "https://github.com/erickmerchant/framework-cli#readme",
   "devDependencies": {
+    "bel": "^5.1.5",
+    "execa": "^0.8.0",
     "standard": "^10.0.3",
     "tape": "^4.8.0"
   },
   "dependencies": {
     "chalk": "^2.3.0",
-    "commondir": "^1.0.1",
+    "common-dir": "^1.0.1",
     "glob": "^7.1.2",
     "jsdom": "^11.3.0",
     "mkdirp": "^0.5.1",
