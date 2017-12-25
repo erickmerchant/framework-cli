@@ -77,7 +77,7 @@ test('index.js render - functionality', async function (t) {
     state: ['./fixtures/*.json'],
     component: './fixtures/component.js',
     document: './fixtures/document.html',
-    selector: 'body',
+    selector: 'main',
     output: false
   })
   .then(function () {

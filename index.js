@@ -57,7 +57,7 @@ exports.render = function (deps) {
             if (element) {
               const fragment = new JSDOM(String(component({state, dispatch, next})))
 
-              element.parentNode.replaceChild(fragment.window.document.body, element)
+              element.parentNode.replaceChild(fragment.window.document.querySelector(args.selector), element)
             }
 
             const result = dom.serialize()
