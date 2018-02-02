@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/erickmerchant/framework-cli#readme",
   "devDependencies": {
-    "bel": "^5.1.5",
+    "bel": "^5.1.6",
     "execa": "^0.9.0",
     "standard": "^10.0.3",
     "tape": "^4.8.0"
