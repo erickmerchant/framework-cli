@@ -44,31 +44,31 @@ exports.render = function (deps) {
 
       return readFile(path.join(process.cwd(), args.document), 'utf8').then(function (html) {
         return Promise.all(args.state.map((state) => glob(state, {nodir: true})))
-        .then(function (files) {
-          files = files.reduce((files, current) => files.concat(current), [])
+          .then(function (files) {
+            files = files.reduce((files, current) => files.concat(current), [])
 
-          const stateParent = commonDir(files)
+            const stateParent = commonDir(files)
 
-          return Promise.all(files.map(function (file) {
-            const dom = new JSDOM(html)
-            const state = require(path.join(process.cwd(), file))
-            const element = dom.window.document.querySelector(args.selector)
+            return Promise.all(files.map(function (file) {
+              const dom = new JSDOM(html)
+              const state = require(path.join(process.cwd(), file))
+              const element = dom.window.document.querySelector(args.selector)
 
-            if (element) {
-              const fragment = new JSDOM(String(component({state, dispatch, next})))
+              if (element) {
+                const fragment = new JSDOM(String(component({state, dispatch, next})))
 
-              element.parentNode.replaceChild(fragment.window.document.querySelector(args.selector), element)
-            }
+                element.parentNode.replaceChild(fragment.window.document.querySelector(args.selector), element)
+              }
 
-            const result = dom.serialize()
-            const relativeFile = path.relative(stateParent, file)
-            const outputFile = path.join(outputDirectory, path.dirname(relativeFile), path.basename(relativeFile, path.extname(relativeFile))) + '.html'
+              const result = dom.serialize()
+              const relativeFile = path.relative(stateParent, file)
+              const outputFile = path.join(outputDirectory, path.dirname(relativeFile), path.basename(relativeFile, path.extname(relativeFile))) + '.html'
 
-            return deps.makeDir(path.dirname(outputFile)).then(function () {
-              return deps.writeFile(outputFile, result)
-            })
-          }))
-        })
+              return deps.makeDir(path.dirname(outputFile)).then(function () {
+                return deps.writeFile(outputFile, result)
+              })
+            }))
+          })
       })
     }
   }

@@ -80,18 +80,18 @@ test('index.js render - functionality', async function (t) {
     selector: 'main',
     output: false
   })
-  .then(function () {
-    t.deepEqual(output, [
-      [
-        path.join(process.cwd(), './fixtures/heading-1.html'),
-        result1
-      ],
-      [
-        path.join(process.cwd(), './fixtures/heading-2.html'),
-        result2
-      ]
-    ])
-  })
+    .then(function () {
+      t.deepEqual(output, [
+        [
+          path.join(process.cwd(), './fixtures/heading-1.html'),
+          result1
+        ],
+        [
+          path.join(process.cwd(), './fixtures/heading-2.html'),
+          result2
+        ]
+      ])
+    })
 })
 
 test('cli.js render', async function (t) {
