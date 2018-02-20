@@ -23,7 +23,7 @@
     "bel": "^5.1.6",
     "execa": "^0.9.0",
     "standard": "^11.0.0",
-    "tape": "^4.8.0"
+    "tape": "^4.9.0"
   },
   "dependencies": {
     "chalk": "^2.3.1",
