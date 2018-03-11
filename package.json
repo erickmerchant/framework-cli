@@ -27,9 +27,8 @@
   },
   "dependencies": {
     "chalk": "^2.3.2",
-    "common-dir": "^1.0.1",
-    "glob": "^7.1.2",
     "jsdom": "^11.6.2",
+    "lodash.get": "^4.4.2",
     "mkdirp": "^0.5.1",
     "sergeant": "^17.2.4",
     "thenify": "^3.3.0"

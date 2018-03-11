@@ -3,10 +3,14 @@ const execa = require('execa')
 const path = require('path')
 const thenify = require('thenify')
 const readFile = thenify(require('fs').readFile)
+const stream = require('stream')
+const out = new stream.Writable()
+out._write = () => {}
 
 const noopDeps = {
   makeDir: () => Promise.resolve(true),
-  writeFile: () => Promise.resolve(true)
+  writeFile: () => Promise.resolve(true),
+  out
 }
 const noopDefiners = {
   parameter () {},
@@ -14,7 +18,7 @@ const noopDefiners = {
 }
 
 test('index.js render - options and parameters', function (t) {
-  t.plan(12)
+  t.plan(13)
 
   const parameters = {}
   const options = {}
@@ -28,11 +32,9 @@ test('index.js render - options and parameters', function (t) {
     }
   })
 
-  t.ok(parameters.state)
+  t.ok(parameters.store)
 
-  t.equal(parameters.state.required, true)
-
-  t.equal(parameters.state.multiple, true)
+  t.equal(parameters.store.required, true)
 
   t.ok(parameters.component)
 
@@ -46,6 +48,10 @@ test('index.js render - options and parameters', function (t) {
 
   t.deepEqual(options.selector.default, { value: 'body' })
 
+  t.ok(options.location)
+
+  t.deepEqual(options.location.default, { value: 'location' })
+
   t.ok(options.output)
 
   t.deepEqual(options.output.default, { text: 'dirname of <document>', value: false })
@@ -54,7 +60,7 @@ test('index.js render - options and parameters', function (t) {
 })
 
 test('index.js render - functionality', async function (t) {
-  t.plan(3)
+  t.plan(2)
 
   const output = []
   const [result1, result2] = await Promise.all([
@@ -72,9 +78,10 @@ test('index.js render - functionality', async function (t) {
       output.push([path, content])
 
       return Promise.resolve(true)
-    }
+    },
+    out
   })(noopDefiners)({
-    state: ['./fixtures/*.json'],
+    store: './fixtures/store.js',
     component: './fixtures/component.js',
     document: './fixtures/document.html',
     selector: 'main',
