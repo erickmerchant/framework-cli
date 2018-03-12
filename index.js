@@ -57,42 +57,36 @@ exports.render = function (deps) {
       }
 
       return readFile(path.join(process.cwd(), args.document), 'utf8').then(function (html) {
-        return new Promise(function (resolve, reject) {
-          store(commit)
+        store(commit)
 
-          function commit (current) {
-            try {
-              assert.equal(typeof current, 'function', 'current must be a function')
+        function commit (current) {
+          assert.equal(typeof current, 'function', 'current must be a function')
 
-              const state = current()
+          const state = current()
 
-              const dom = new JSDOM(html)
-              const element = dom.window.document.querySelector(args.selector)
+          const dom = new JSDOM(html)
+          const element = dom.window.document.querySelector(args.selector)
 
-              if (element) {
-                const fragment = new JSDOM(String(component({state, dispatch, next})))
+          if (element) {
+            const fragment = new JSDOM(String(component({state, dispatch, next})))
 
-                element.parentNode.replaceChild(fragment.window.document.querySelector(args.selector), element)
-              }
-
-              const result = dom.serialize()
-              const location = get(state, args.location, 'index.html')
-
-              assert.equal(typeof location, 'string', 'location must be a string')
-
-              const file = path.join(outputDirectory, path.extname(location) ? location : path.join(location, 'index.html'))
-
-              deps.makeDir(path.dirname(file)).then(function () {
-                return deps.writeFile(file, result).then(function () {
-                  deps.out.write(chalk.green('\u2714') + ' saved ' + file + '\n')
-                })
-              })
-                .catch(reject)
-            } catch (e) {
-              reject(e)
-            }
+            element.parentNode.replaceChild(fragment.window.document.querySelector(args.selector), element)
           }
-        })
+
+          const result = dom.serialize()
+          const location = get(state, args.location, 'index.html')
+
+          assert.equal(typeof location, 'string', 'location must be a string')
+
+          const file = path.join(outputDirectory, path.extname(location) ? location : path.join(location, 'index.html'))
+          const relativeFile = path.relative(process.cwd(), file)
+
+          deps.makeDir(path.dirname(file)).then(function () {
+            return deps.writeFile(file, result).then(function () {
+              deps.out.write(chalk.green('\u2714') + ' saved ' + relativeFile + '\n')
+            })
+          })
+        }
       })
     }
   }

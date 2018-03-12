@@ -60,7 +60,7 @@ test('index.js render - options and parameters', function (t) {
 })
 
 test('index.js render - functionality', async function (t) {
-  t.plan(2)
+  t.plan(3)
 
   const output = []
   const [result1, result2] = await Promise.all([
@@ -85,6 +85,7 @@ test('index.js render - functionality', async function (t) {
     component: './fixtures/component.js',
     document: './fixtures/document.html',
     selector: 'main',
+    location: 'location',
     output: false
   })
     .then(function () {
@@ -98,6 +99,41 @@ test('index.js render - functionality', async function (t) {
           result2
         ]
       ])
+    })
+})
+
+test('index.js render - console', function (t) {
+  t.plan(1)
+
+  const output = []
+
+  require('./index').render({
+    makeDir (directory) {
+      return Promise.resolve(true)
+    },
+    writeFile (path, content) {
+      return Promise.resolve(true)
+    },
+    out: {
+      write: function (str) {
+        output.push(str)
+      }
+    }
+  })(noopDefiners)({
+    store: './fixtures/store.js',
+    component: './fixtures/component.js',
+    document: './fixtures/document.html',
+    selector: 'main',
+    location: 'location',
+    output: false
+  })
+    .then(function () {
+      process.nextTick(function () {
+        t.deepEqual(output, [
+          '\u2714 saved fixtures/heading-1.html\n',
+          '\u2714 saved fixtures/heading-2.html\n'
+        ])
+      })
     })
 })
 
