@@ -1,5 +1,6 @@
 const test = require('tape')
 const execa = require('execa')
+const chalk = require('chalk')
 const path = require('path')
 const thenify = require('thenify')
 const readFile = thenify(require('fs').readFile)
@@ -130,8 +131,8 @@ test('index.js render - console', function (t) {
     .then(function () {
       process.nextTick(function () {
         t.deepEqual(output, [
-          '\u2714 saved fixtures/heading-1.html\n',
-          '\u2714 saved fixtures/heading-2.html\n'
+          chalk.green('\u2714') + ' saved fixtures/heading-1.html\n',
+          chalk.green('\u2714') + ' saved fixtures/heading-2.html\n'
         ])
       })
     })
