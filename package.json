@@ -1,6 +1,6 @@
 {
   "name": "@erickmerchant/framework-cli",
-  "version": "5.0.1",
+  "version": "5.0.2",
   "description": "a cli for @erickmerchant/framework",
   "main": "index.js",
   "bin": {
