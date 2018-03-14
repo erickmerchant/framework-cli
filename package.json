@@ -22,7 +22,7 @@
   "devDependencies": {
     "execa": "^0.9.0",
     "nanohtml": "^1.2.0",
-    "standard": "^11.0.0",
+    "standard": "^11.0.1",
     "tape": "^4.9.0"
   },
   "dependencies": {
