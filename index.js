@@ -53,10 +53,10 @@ exports.render = function (deps) {
       let outputDirectory = args.output
 
       if (!outputDirectory) {
-        outputDirectory = path.dirname(path.join(process.cwd(), args.document))
+        outputDirectory = path.dirname(args.document)
       }
 
-      return readFile(path.join(process.cwd(), args.document), 'utf8').then(function (html) {
+      return readFile(args.document, 'utf8').then(function (html) {
         store(commit)
 
         function commit (current) {

@@ -1,7 +1,6 @@
 const test = require('tape')
 const execa = require('execa')
 const chalk = require('chalk')
-const path = require('path')
 const thenify = require('thenify')
 const readFile = thenify(require('fs').readFile)
 const stream = require('stream')
@@ -71,7 +70,7 @@ test('index.js render - functionality', async function (t) {
 
   require('./index').render({
     makeDir (directory) {
-      t.equal(path.join(process.cwd(), './fixtures'), directory)
+      t.equal('fixtures', directory)
 
       return Promise.resolve(true)
     },
@@ -92,11 +91,11 @@ test('index.js render - functionality', async function (t) {
     .then(function () {
       t.deepEqual(output, [
         [
-          path.join(process.cwd(), './fixtures/heading-1.html'),
+          'fixtures/heading-1.html',
           result1
         ],
         [
-          path.join(process.cwd(), './fixtures/heading-2.html'),
+          'fixtures/heading-2.html',
           result2
         ]
       ])
