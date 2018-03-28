@@ -30,7 +30,7 @@
     "jsdom": "^11.6.2",
     "lodash.get": "^4.4.2",
     "mkdirp": "^0.5.1",
-    "sergeant": "^17.2.4",
+    "sergeant": "^17.2.5",
     "thenify": "^3.3.0"
   }
 }
