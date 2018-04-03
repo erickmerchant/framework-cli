@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "chalk": "^2.3.2",
-    "jsdom": "^11.6.2",
+    "jsdom": "^11.7.0",
     "lodash.get": "^4.4.2",
     "mkdirp": "^0.5.1",
     "sergeant": "^17.2.5",
