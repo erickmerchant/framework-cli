@@ -18,7 +18,7 @@ const noopDefiners = {
 }
 
 test('index.js render - options and parameters', function (t) {
-  t.plan(13)
+  t.plan(12)
 
   const parameters = {}
   const options = {}
@@ -46,15 +46,13 @@ test('index.js render - options and parameters', function (t) {
 
   t.ok(options.selector)
 
-  t.deepEqual(options.selector.default, { value: 'body' })
+  t.equal(options.selector.default, 'body')
 
   t.ok(options.location)
 
-  t.deepEqual(options.location.default, { value: 'location' })
+  t.equal(options.location.default, 'location')
 
   t.ok(options.output)
-
-  t.deepEqual(options.output.default, { text: 'dirname of <document>', value: false })
 
   t.deepEqual(options.output.aliases, ['o'])
 })

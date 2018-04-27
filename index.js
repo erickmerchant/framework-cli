@@ -33,18 +33,26 @@ exports.render = function (deps) {
 
     option('selector', {
       description: 'a selector to find in the document',
-      default: { value: 'body' }
+      default: 'body',
+      type: function selector (val) {
+        return val
+      }
     })
 
     option('location', {
       description: 'a json path to the location in the state',
-      default: { value: 'location' }
+      default: 'location',
+      type: function location (val) {
+        return val
+      }
     })
 
     option('output', {
       description: 'a directory to save to',
-      default: { text: 'dirname of <document>', value: false },
-      aliases: ['o']
+      aliases: ['o'],
+      type: function output (val) {
+        return val
+      }
     })
 
     return function (args) {
