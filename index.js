@@ -33,16 +33,18 @@ exports.render = function (deps) {
 
     option('selector', {
       description: 'a selector to find in the document',
-      default: 'body',
       type: function selector (val) {
+        if (val == null) return 'body'
+
         return val
       }
     })
 
     option('location', {
       description: 'a json path to the location in the state',
-      default: 'location',
       type: function location (val) {
+        if (val == null) return 'location'
+
         return val
       }
     })

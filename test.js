@@ -46,11 +46,11 @@ test('index.js render - options and parameters', function (t) {
 
   t.ok(options.selector)
 
-  t.equal(options.selector.default, 'body')
+  t.equal(options.selector.type(), 'body')
 
   t.ok(options.location)
 
-  t.equal(options.location.default, 'location')
+  t.equal(options.location.type(), 'location')
 
   t.ok(options.output)
 
