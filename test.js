@@ -1,8 +1,8 @@
 const test = require('tape')
 const execa = require('execa')
 const chalk = require('chalk')
-const thenify = require('thenify')
-const readFile = thenify(require('fs').readFile)
+const promisify = require('util').promisify
+const readFile = promisify(require('fs').readFile)
 const stream = require('stream')
 const out = new stream.Writable()
 out._write = () => {}

@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 const command = require('sergeant')
 const commands = require('./index')
-const thenify = require('thenify')
-const makeDir = thenify(require('mkdirp'))
-const writeFile = thenify(require('fs').writeFile)
+const promisify = require('util').promisify
+const makeDir = require('make-dir')
+const writeFile = promisify(require('fs').writeFile)
 const out = process.stdout
 const deps = {
   makeDir,
