@@ -128,8 +128,8 @@ test('index.js render - console', function (t) {
     .then(function () {
       process.nextTick(function () {
         t.deepEqual(output, [
-          chalk.gray('[framework render]') + ' ' + chalk.green('\u2714') + ' saved fixtures/heading-1.html\n',
-          chalk.gray('[framework render]') + ' ' + chalk.green('\u2714') + ' saved fixtures/heading-2.html\n'
+          `${chalk.gray('[framework render]')} saved fixtures/heading-1.html\n`,
+          `${chalk.gray('[framework render]')} saved fixtures/heading-2.html\n`
         ])
       })
     })
