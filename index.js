@@ -93,7 +93,7 @@ exports.render = function (deps) {
 
           deps.makeDir(path.dirname(file)).then(function () {
             return deps.writeFile(file, result).then(function () {
-              deps.out.write(chalk.green('\u2714') + ' saved ' + relativeFile + '\n')
+              deps.out.write(`${chalk.gray('[framework render]')} ${chalk.green('\u2714')} saved ${relativeFile}\n`)
             })
           })
         }
