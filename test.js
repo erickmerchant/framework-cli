@@ -8,9 +8,9 @@ const out = new stream.Writable()
 out._write = () => {}
 
 const noopDeps = {
-  makeDir: () => Promise.resolve(true),
-  writeFile: () => Promise.resolve(true),
-  out
+  out,
+  makeDir () { return Promise.resolve(true) },
+  writeFile () { return Promise.resolve(true) }
 }
 const noopDefiners = {
   parameter () {},
@@ -113,7 +113,7 @@ test('index.js render - console', function (t) {
       return Promise.resolve(true)
     },
     out: {
-      write: function (str) {
+      write (str) {
         output.push(str)
       }
     }
