@@ -23,7 +23,7 @@
     "execa": "^0.10.0",
     "nanohtml": "^1.2.3",
     "standard": "^11.0.1",
-    "tape": "^4.9.0"
+    "tape": "^4.9.1"
   },
   "dependencies": {
     "chalk": "^2.4.1",
