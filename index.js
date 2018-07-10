@@ -6,7 +6,7 @@ const get = require('lodash.get')
 const promisify = require('util').promisify
 const readFile = promisify(require('fs').readFile)
 
-exports.render = function (deps) {
+module.exports.render = function (deps) {
   assert.equal(typeof deps.makeDir, 'function')
 
   assert.equal(typeof deps.writeFile, 'function')
