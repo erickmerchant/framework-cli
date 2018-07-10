@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 const command = require('sergeant')
-const commands = require('./index')
+const render = require('./src/render.js')
 const promisify = require('util').promisify
 const makeDir = require('make-dir')
 const writeFile = promisify(require('fs').writeFile)
@@ -12,5 +12,5 @@ const deps = {
 }
 
 command('framework', 'some helpful commands for your app', function ({parameter, option, command}) {
-  command('render', 'render a component to static html', commands.render(deps))
+  command('render', 'render a component to static html', render(deps))
 })(process.argv.slice(2))

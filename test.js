@@ -17,13 +17,13 @@ const noopDefiners = {
   option () {}
 }
 
-test('index.js render - options and parameters', function (t) {
+test('src/render.js - options and parameters', function (t) {
   t.plan(12)
 
   const parameters = {}
   const options = {}
 
-  require('./index').render(noopDeps)({
+  require('./src/render.js')(noopDeps)({
     parameter (name, args) {
       parameters[name] = args
     },
@@ -57,7 +57,7 @@ test('index.js render - options and parameters', function (t) {
   t.deepEqual(options.output.aliases, ['o'])
 })
 
-test('index.js render - functionality', async function (t) {
+test('src/render.js - functionality', async function (t) {
   t.plan(3)
 
   const output = []
@@ -66,7 +66,7 @@ test('index.js render - functionality', async function (t) {
     readFile('./fixtures/heading-2.html', 'utf-8')
   ])
 
-  require('./index').render({
+  require('./src/render.js')({
     makeDir (directory) {
       t.equal('fixtures', directory)
 
@@ -100,12 +100,12 @@ test('index.js render - functionality', async function (t) {
     })
 })
 
-test('index.js render - console', function (t) {
+test('src/render.js - console', function (t) {
   t.plan(1)
 
   const output = []
 
-  require('./index').render({
+  require('./src/render.js')({
     makeDir (directory) {
       return Promise.resolve(true)
     },
