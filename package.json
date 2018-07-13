@@ -30,6 +30,6 @@
     "jsdom": "^11.11.0",
     "lodash.get": "^4.4.2",
     "make-dir": "^1.3.0",
-    "sergeant": "^20.2.0"
+    "sergeant": "^20.2.1"
   }
 }
