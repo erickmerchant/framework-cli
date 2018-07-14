@@ -51,7 +51,7 @@ module.exports = function (deps) {
 
     option('output', {
       description: 'a directory to save to',
-      aliases: ['o'],
+      alias: 'o',
       type: function output (val) {
         return val
       }

@@ -54,7 +54,7 @@ test('src/render.js - options and parameters', function (t) {
 
   t.ok(options.output)
 
-  t.deepEqual(options.output.aliases, ['o'])
+  t.deepEqual(options.output.alias, 'o')
 })
 
 test('src/render.js - functionality', async function (t) {
