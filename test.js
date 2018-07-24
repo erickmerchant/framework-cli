@@ -7,56 +7,6 @@ const stream = require('stream')
 const out = new stream.Writable()
 out._write = () => {}
 
-const noopDeps = {
-  out,
-  makeDir () { return Promise.resolve(true) },
-  writeFile () { return Promise.resolve(true) }
-}
-const noopDefiners = {
-  parameter () {},
-  option () {}
-}
-
-test('src/render.js - options and parameters', function (t) {
-  t.plan(12)
-
-  const parameters = {}
-  const options = {}
-
-  require('./src/render.js')(noopDeps)({
-    parameter (name, args) {
-      parameters[name] = args
-    },
-    option (name, args) {
-      options[name] = args
-    }
-  })
-
-  t.ok(parameters.store)
-
-  t.equal(parameters.store.required, true)
-
-  t.ok(parameters.component)
-
-  t.equal(parameters.component.required, true)
-
-  t.ok(parameters.document)
-
-  t.equal(parameters.document.required, true)
-
-  t.ok(options.selector)
-
-  t.equal(options.selector.type(), 'body')
-
-  t.ok(options.location)
-
-  t.equal(options.location.type(), 'location')
-
-  t.ok(options.output)
-
-  t.deepEqual(options.output.alias, 'o')
-})
-
 test('src/render.js - functionality', async function (t) {
   t.plan(3)
 
@@ -78,7 +28,7 @@ test('src/render.js - functionality', async function (t) {
       return Promise.resolve(true)
     },
     out
-  })(noopDefiners)({
+  })({
     store: './fixtures/store.js',
     component: './fixtures/component.js',
     document: './fixtures/document.html',
@@ -117,7 +67,7 @@ test('src/render.js - console', function (t) {
         output.push(str)
       }
     }
-  })(noopDefiners)({
+  })({
     store: './fixtures/store.js',
     component: './fixtures/component.js',
     document: './fixtures/document.html',
