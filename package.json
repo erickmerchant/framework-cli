@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/erickmerchant/framework-cli#readme",
   "devDependencies": {
-    "execa": "^0.10.0",
+    "execa": "^0.11.0",
     "nanohtml": "^1.2.3",
     "standard": "^11.0.1",
     "tape": "^4.9.1"
