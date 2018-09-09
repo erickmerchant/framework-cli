@@ -6,7 +6,7 @@ const get = require('lodash.get')
 const promisify = require('util').promisify
 const readFile = promisify(require('fs').readFile)
 
-module.exports = function (deps) {
+module.exports = (deps) => {
   assert.strictEqual(typeof deps.makeDir, 'function')
 
   assert.strictEqual(typeof deps.writeFile, 'function')
@@ -15,7 +15,7 @@ module.exports = function (deps) {
 
   assert.strictEqual(typeof deps.out.write, 'function')
 
-  return function (args) {
+  return async (args) => {
     const component = require(path.join(process.cwd(), args.component))
     const store = require(path.join(process.cwd(), args.store))
     let outputDirectory = args.output
@@ -24,38 +24,38 @@ module.exports = function (deps) {
       outputDirectory = path.dirname(args.document)
     }
 
-    return readFile(args.document, 'utf8').then(function (html) {
-      store(commit)
+    const html = await readFile(args.document, 'utf8')
 
-      function commit (current) {
-        assert.strictEqual(typeof current, 'function', 'current must be a function')
+    store(commit)
 
-        const state = current()
+    async function commit (current) {
+      assert.strictEqual(typeof current, 'function', 'current must be a function')
 
-        const dom = new JSDOM(html)
-        const element = dom.window.document.querySelector(args.selector)
+      const state = current()
 
-        if (element) {
-          const fragment = new JSDOM(String(component({ state, dispatch, next })))
+      const dom = new JSDOM(html)
+      const element = dom.window.document.querySelector(args.selector)
 
-          element.parentNode.replaceChild(fragment.window.document.querySelector(args.selector), element)
-        }
+      if (element) {
+        const fragment = new JSDOM(String(component({ state, dispatch, next })))
 
-        const result = dom.serialize()
-        const location = get(state, args.location, 'index.html')
-
-        assert.strictEqual(typeof location, 'string', 'location must be a string')
-
-        const file = path.join(outputDirectory, path.extname(location) ? location : path.join(location, 'index.html'))
-        const relativeFile = path.relative(process.cwd(), file)
-
-        deps.makeDir(path.dirname(file)).then(function () {
-          return deps.writeFile(file, result).then(function () {
-            deps.out.write(`${chalk.gray('[framework render]')} saved ${relativeFile}\n`)
-          })
-        })
+        element.parentNode.replaceChild(fragment.window.document.querySelector(args.selector), element)
       }
-    })
+
+      const result = dom.serialize()
+      const location = get(state, args.location, 'index.html')
+
+      assert.strictEqual(typeof location, 'string', 'location must be a string')
+
+      const file = path.join(outputDirectory, path.extname(location) ? location : path.join(location, 'index.html'))
+      const relativeFile = path.relative(process.cwd(), file)
+
+      await deps.makeDir(path.dirname(file))
+
+      await deps.writeFile(file, result)
+
+      deps.out.write(`${chalk.gray('[framework render]')} saved ${relativeFile}\n`)
+    }
   }
 }
 

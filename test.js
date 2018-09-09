@@ -7,7 +7,7 @@ const stream = require('stream')
 const out = new stream.Writable()
 out._write = () => {}
 
-test('src/render.js - functionality', async function (t) {
+test('src/render.js - functionality', async (t) => {
   t.plan(3)
 
   const output = []
@@ -16,16 +16,16 @@ test('src/render.js - functionality', async function (t) {
     readFile('./fixtures/heading-2.html', 'utf-8')
   ])
 
-  require('./src/render.js')({
-    makeDir (directory) {
+  await require('./src/render.js')({
+    async makeDir (directory) {
       t.equal('fixtures', directory)
 
-      return Promise.resolve(true)
+      return true
     },
-    writeFile (path, content) {
+    async writeFile (path, content) {
       output.push([path, content])
 
-      return Promise.resolve(true)
+      return true
     },
     out
   })({
@@ -36,31 +36,30 @@ test('src/render.js - functionality', async function (t) {
     location: 'location',
     output: false
   })
-    .then(function () {
-      t.deepEqual(output, [
-        [
-          'fixtures/heading-1.html',
-          result1
-        ],
-        [
-          'fixtures/heading-2.html',
-          result2
-        ]
-      ])
-    })
+
+  t.deepEqual(output, [
+    [
+      'fixtures/heading-1.html',
+      result1
+    ],
+    [
+      'fixtures/heading-2.html',
+      result2
+    ]
+  ])
 })
 
-test('src/render.js - console', function (t) {
+test('src/render.js - console', async (t) => {
   t.plan(1)
 
   const output = []
 
-  require('./src/render.js')({
-    makeDir (directory) {
-      return Promise.resolve(true)
+  await require('./src/render.js')({
+    async makeDir (directory) {
+      return true
     },
-    writeFile (path, content) {
-      return Promise.resolve(true)
+    async writeFile (path, content) {
+      return true
     },
     out: {
       write (str) {
@@ -75,17 +74,16 @@ test('src/render.js - console', function (t) {
     location: 'location',
     output: false
   })
-    .then(function () {
-      process.nextTick(function () {
-        t.deepEqual(output, [
-          `${chalk.gray('[framework render]')} saved fixtures/heading-1.html\n`,
-          `${chalk.gray('[framework render]')} saved fixtures/heading-2.html\n`
-        ])
-      })
-    })
+
+  process.nextTick(() => {
+    t.deepEqual(output, [
+      `${chalk.gray('[framework render]')} saved fixtures/heading-1.html\n`,
+      `${chalk.gray('[framework render]')} saved fixtures/heading-2.html\n`
+    ])
+  })
 })
 
-test('cli.js render', async function (t) {
+test('cli.js render', async (t) => {
   t.plan(4)
 
   try {

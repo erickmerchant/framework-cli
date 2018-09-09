@@ -11,7 +11,7 @@ const deps = {
   out
 }
 
-command('framework', 'some helpful commands for your app', function ({ parameter, option, command }) {
+command('framework', 'some helpful commands for your app', ({ parameter, option, command }) => {
   command('render', 'render a component to static html', ({ option, parameter }) => {
     parameter('store', {
       description: 'the store',
