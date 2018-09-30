@@ -3,8 +3,9 @@ const chalk = require('chalk')
 const JSDOM = require('jsdom').JSDOM
 const path = require('path')
 const get = require('lodash.get')
-const promisify = require('util').promisify
-const readFile = promisify(require('fs').readFile)
+const streamPromise = require('stream-to-promise')
+const fs = require('fs')
+const createReadStream = fs.createReadStream
 
 module.exports = (deps) => {
   assert.strictEqual(typeof deps.makeDir, 'function')
@@ -24,7 +25,7 @@ module.exports = (deps) => {
       outputDirectory = path.dirname(args.document)
     }
 
-    const html = await readFile(args.document, 'utf8')
+    const html = await streamPromise(createReadStream(args.document, 'utf8'))
 
     store(commit)
 

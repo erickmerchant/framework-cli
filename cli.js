@@ -1,13 +1,16 @@
 #!/usr/bin/env node
 const command = require('sergeant')
 const render = require('./src/render.js')
-const promisify = require('util').promisify
 const makeDir = require('make-dir')
-const writeFile = promisify(require('fs').writeFile)
+const streamPromise = require('stream-to-promise')
+const fs = require('fs')
+const createWriteStream = fs.createWriteStream
 const out = process.stdout
 const deps = {
   makeDir,
-  writeFile,
+  async writeFile (path, content) {
+    await streamPromise(createWriteStream(path, content))
+  },
   out
 }
 
