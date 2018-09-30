@@ -8,8 +8,12 @@ const createWriteStream = fs.createWriteStream
 const out = process.stdout
 const deps = {
   makeDir,
-  async writeFile (path, content) {
-    await streamPromise(createWriteStream(path, content))
+  writeFile (path, content) {
+    const stream = createWriteStream(path)
+
+    stream.end(content)
+
+    return streamPromise(stream)
   },
   out
 }
