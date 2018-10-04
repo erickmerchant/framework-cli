@@ -37,16 +37,18 @@ test('src/render.js - functionality', async (t) => {
     output: false
   })
 
-  t.deepEqual(output, [
-    [
-      'fixtures/heading-1.html',
-      result1
-    ],
-    [
-      'fixtures/heading-2.html',
-      result2
-    ]
-  ])
+  process.nextTick(() => {
+    t.deepEqual(output, [
+      [
+        'fixtures/heading-1.html',
+        result1
+      ],
+      [
+        'fixtures/heading-2.html',
+        result2
+      ]
+    ])
+  })
 })
 
 test('src/render.js - console', async (t) => {
