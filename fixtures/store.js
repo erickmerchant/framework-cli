@@ -1,12 +1,12 @@
 module.exports = function (commit) {
-  commit(function () {
+  commit(() => {
     return {
       location: '/heading-1.html',
       heading: 'Heading 1'
     }
   })
 
-  commit(function () {
+  commit(() => {
     return {
       location: '/heading-2.html',
       heading: 'Heading 2'
